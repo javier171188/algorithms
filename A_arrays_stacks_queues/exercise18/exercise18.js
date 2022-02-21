@@ -21,7 +21,7 @@ class SparseMatrix {
         }
     }
 
-    get(row, col) {
+    getValue(row, col) {
         if (row > this.numberOfRows - 1 || col > this.numberOfCols - 1) {
             console.log('Coordinates out of range');
             return;
@@ -31,23 +31,27 @@ class SparseMatrix {
         if (!fullRow) return 0;
         return this.values[row][col] || 0;
     }
+    setValue(row, col, value) {
+        if (row > this.numberOfRows - 1 || col > this.numberOfCols - 1) {
+            console.log('Coordinates out of range');
+            return;
+        }
+
+        let fullRow = this.values[row];
+        if (value == 0) {
+            if (fullRow) {
+                delete this.values[row];
+            }
+            return;
+        }
+
+        if (!fullRow) {
+            this.values[row] = {};
+            this.values[row][col] = value;
+        } else {
+            this.values[row][col] = value;
+        }
+    }
 }
 
-const A = [
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 110, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 42, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 69, 0, 0, 0]]
-
-const sparseMatrix = new SparseMatrix(A);
-
-const nonExisting = sparseMatrix.get(10, 10);
-const zeroValue = sparseMatrix.get(2, 4);
-const nonZero = sparseMatrix.get(1, 10);
-
-console.log(nonExisting);
-console.log(zeroValue);
-console.log(nonZero);
+module.exports = { SparseMatrix };
