@@ -1,11 +1,5 @@
 'use strict';
 
-let expression = '(([[{{}}]]))';
-expression = ')))';
-
-const balanced = checkBalance(expression);
-console.log(balanced);
-
 function checkBalance(expression) {
     const prevStack = [];
     const PAIRS = { ')': '(', ']': '[', '}': '{' };
@@ -23,3 +17,5 @@ function checkBalance(expression) {
     if (prevStack.length > 0) return false;
     return true;
 }
+
+module.exports = { checkBalance };
