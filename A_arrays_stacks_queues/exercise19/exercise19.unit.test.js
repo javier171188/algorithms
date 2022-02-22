@@ -18,12 +18,32 @@ test('Basic tests', () => {
 
 test('Diverse tests', () => {
     let parenthesis = '()()()()()()()()()';
+    let result = checkBalance(parenthesis);
+    expect(result).toEqual({ balanced: true, missing: 0 })
 
     parenthesis = '(((((((((((())))))))))))';
+    result = checkBalance(parenthesis);
+    expect(result).toEqual({ balanced: true, missing: 0 })
+
+    parenthesis = '(((((((((((())))))))))))}';
+
+    parenthesis = '(((((((((((()))))))))))';
+    result = checkBalance(parenthesis);
+    expect(result).toEqual({ balanced: false, missing: 22 })
+
+    parenthesis = '((((((((((((((((((((';
+
+    parenthesis = ')))))))))))))';
 
 
 })
 
 test('Small strings', () => {
-    parenthesis = ')'
+    let parenthesis = '';
+
+    parenthesis = ')';
+
+    parenthesis = '(';
+
+    parenthesis = '()';
 })
