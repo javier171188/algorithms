@@ -25,25 +25,38 @@ test('Diverse tests', () => {
     result = checkBalance(parenthesis);
     expect(result).toEqual({ balanced: true, missing: 0 })
 
-    parenthesis = '(((((((((((())))))))))))}';
+    parenthesis = '(((((((((((()))))))))))))';
+    result = checkBalance(parenthesis);
+    expect(result).toEqual({ balanced: false, missing: 0 })
 
     parenthesis = '(((((((((((()))))))))))';
     result = checkBalance(parenthesis);
     expect(result).toEqual({ balanced: false, missing: 22 })
 
     parenthesis = '((((((((((((((((((((';
+    result = checkBalance(parenthesis);
+    expect(result).toEqual({ balanced: false, missing: 19 })
 
     parenthesis = ')))))))))))))';
-
+    result = checkBalance(parenthesis);
+    expect(result).toEqual({ balanced: false, missing: 12 })
 
 })
 
 test('Small strings', () => {
     let parenthesis = '';
+    let result = checkBalance(parenthesis);
+    expect(result).toEqual({ balanced: true, missing: 0 })
 
     parenthesis = ')';
+    result = checkBalance(parenthesis);
+    expect(result).toEqual({ balanced: false, missing: 0 })
 
     parenthesis = '(';
+    result = checkBalance(parenthesis);
+    expect(result).toEqual({ balanced: false, missing: 0 })
 
     parenthesis = '()';
+    result = checkBalance(parenthesis);
+    expect(result).toEqual({ balanced: true, missing: 0 })
 })

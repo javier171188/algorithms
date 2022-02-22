@@ -1,12 +1,5 @@
 'use strict';
 
-//const parenthesis = "(()()()()(((())))()()()()";
-//const parenthesis = "(()()()()))(((())))()()()()";
-// const parenthesis = "(()()()())(((())))()()()()";
-
-// const balanced = checkBalance(parenthesis);
-// console.log(balanced);
-
 function checkBalance(parenthesis) {
     const nParent = parenthesis.length;
     const positions = [];
@@ -23,7 +16,6 @@ function checkBalance(parenthesis) {
         let firstPosition = positions[0];
         return { balanced: false, missing: nParent - (firstPosition + 1) };
     }
-
     return { balanced: true, missing: 0 }
 }
 
