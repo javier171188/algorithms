@@ -18,7 +18,10 @@ class circularQueue {
 
     enqueue(data) {
         if ((this.rear + 1) % this.size === this.front) {
-            console.log(`The queue is full. The element ${data} was not added.`);
+            this.front = (this.front + 1) % this.size;
+            this.rear = (this.rear + 1) % this.size;
+            this.queue[this.rear] = data;
+
         } else if (this.front === -1) {
             this.front = 0;
             this.rear = 0;
