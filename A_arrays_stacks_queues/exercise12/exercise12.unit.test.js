@@ -1,8 +1,5 @@
 'use strict';
-
 const { circularQueue } = require('./exercise12');
-
-
 
 describe('Basic test', () => {
     const circQue = new circularQueue(5);
@@ -18,55 +15,60 @@ describe('Basic test', () => {
         expect(circQue.rear).toEqual(4);
     })
 
-
-    test('Test avoid adding more elements', () => {
+    test('Override  elements when the queue storage is full', () => {
         circQue.enqueue(9);
+        expect(circQue.queue).toEqual([9, 22, 23, -6, 7]);
+        expect(circQue.front).toEqual(1);
+        expect(circQue.rear).toEqual(0);
+
         circQue.enqueue(10);
-        expect(circQue.queue).toEqual([14, 22, 23, -6, 7]);
-        expect(circQue.front).toEqual(0);
-        expect(circQue.rear).toEqual(4);
+        expect(circQue.queue).toEqual([9, 10, 23, -6, 7]);
+        expect(circQue.front).toEqual(2);
+        expect(circQue.rear).toEqual(1);
     })
 
     let dequeued;
     test('Test dequeue', () => {
         dequeued = circQue.dequeue();
-        expect(dequeued).toEqual(14);
-        expect(circQue.front).toEqual(1);
-        expect(circQue.rear).toEqual(4);
+        expect(dequeued).toEqual(23);
+        expect(circQue.front).toEqual(3);
+        expect(circQue.rear).toEqual(1);
 
         dequeued = circQue.dequeue();
-        expect(dequeued).toEqual(22);
-        expect(circQue.front).toEqual(2);
-        expect(circQue.rear).toEqual(4);
+        expect(dequeued).toEqual(-6);
+        expect(circQue.front).toEqual(4);
+        expect(circQue.rear).toEqual(1);
     })
-
 
     test('Test add element after dequeue', () => {
         circQue.enqueue(10);
-        expect(circQue.queue).toEqual([10, 22, 23, -6, 7]);
-        expect(circQue.front).toEqual(2);
-        expect(circQue.rear).toEqual(0);
+        expect(circQue.queue).toEqual([9, 10, 10, -6, 7]);
+        expect(circQue.front).toEqual(4);
+        expect(circQue.rear).toEqual(2);
 
         circQue.enqueue(11);
-        expect(circQue.queue).toEqual([10, 11, 23, -6, 7]);
-        expect(circQue.front).toEqual(2);
-        expect(circQue.rear).toEqual(1);
+        expect(circQue.queue).toEqual([9, 10, 10, 11, 7]);
+        expect(circQue.front).toEqual(4);
+        expect(circQue.rear).toEqual(3);
 
         circQue.enqueue(12);
-        expect(circQue.queue).toEqual([10, 11, 23, -6, 7]);
-        expect(circQue.front).toEqual(2);
-        expect(circQue.rear).toEqual(1);
+        expect(circQue.queue).toEqual([9, 10, 10, 11, 12]);
+        expect(circQue.front).toEqual(0);
+        expect(circQue.rear).toEqual(4);
     })
 
     test('Test display', () => {
         console.log = jest.fn(console.log);
+
+        circQue.enqueue(8)
+
         circQue.display();
 
-        expect(console.log.mock.calls[0][0]).toEqual(23);
-        expect(console.log.mock.calls[1][0]).toEqual(-6);
-        expect(console.log.mock.calls[2][0]).toEqual(7);
-        expect(console.log.mock.calls[3][0]).toEqual(10);
-        expect(console.log.mock.calls[4][0]).toEqual(11);
+        expect(console.log.mock.calls[0][0]).toEqual(10);
+        expect(console.log.mock.calls[1][0]).toEqual(10);
+        expect(console.log.mock.calls[2][0]).toEqual(11);
+        expect(console.log.mock.calls[3][0]).toEqual(12);
+        expect(console.log.mock.calls[4][0]).toEqual(8);
     })
 
     test('Test error when dequeue an empty queue', () => {
@@ -112,14 +114,18 @@ describe('Small sizes', () => {
         expect(circQue.queue).toEqual([undefined]);
 
         circQue.enqueue(14);
-        circQue.enqueue(22);
         expect(circQue.queue).toEqual([14]);
         expect(circQue.front).toEqual(0);
         expect(circQue.rear).toEqual(0);
 
+        circQue.enqueue(22);
+        expect(circQue.queue).toEqual([22]);
+        expect(circQue.front).toEqual(0);
+        expect(circQue.rear).toEqual(0);
+
         const dequeued = circQue.dequeue();
-        expect(circQue.queue).toEqual([14]);
-        expect(dequeued).toEqual(14);
+        expect(circQue.queue).toEqual([22]);
+        expect(dequeued).toEqual(22);
         expect(circQue.front).toEqual(-1);
         expect(circQue.rear).toEqual(-1);
 
@@ -133,8 +139,5 @@ describe('Small sizes', () => {
         expect(circQue.queue).toEqual([10]);
         expect(circQue.front).toEqual(0);
         expect(circQue.rear).toEqual(0);
-
     })
-
 })
-
