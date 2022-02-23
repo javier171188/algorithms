@@ -3,9 +3,12 @@
 
 class circularQueue {
     constructor(size) {
+        if (typeof size !== 'number') {
+            throw new TypeError("The size of the queue must be a positive number.")
+        }
+
         if (size < 1) {
-            console.log('The minimum size is 1.');
-            size = 1;
+            throw new RangeError("The minimum size of the queue is 1.")
         }
         this.size = size;
         this.queue = new Array(size);
@@ -28,8 +31,7 @@ class circularQueue {
 
     dequeue() {
         if (this.front === -1) {
-            console.error('The queue is empty.');
-            return;
+            throw new Error('The queue is empty.');
         }
         const element = this.queue[this.front];
         if (this.front === this.rear) {
@@ -43,7 +45,7 @@ class circularQueue {
 
     display() {
         if (this.front === -1) {
-            console.log('The queue is empty.');
+            console.log(' ');
         } else if (this.front === this.rear) {
             console.log(this.queue[this.front]);
         } else {
