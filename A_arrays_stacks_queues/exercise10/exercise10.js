@@ -1,9 +1,9 @@
 'use strict';
 //https://stackoverflow.com/questions/2450954/how-to-randomize-shuffle-a-javascript-array
+const seedrandom = require('seedrandom');
 
 function shuffleArray(array, seed = null) {
     if (seed) {
-        const seedrandom = require('seedrandom');
         Math.random = seedrandom(seed);
     }
 

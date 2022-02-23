@@ -20,7 +20,7 @@ test('Controlled tests', () => {
 test('Small arrays', () => {
     let a = [];
     shuffleArray(a);
-    expect(a).toEqual(a);
+    expect(a).toEqual([]);
 
     a = [1];
     shuffleArray(a);
