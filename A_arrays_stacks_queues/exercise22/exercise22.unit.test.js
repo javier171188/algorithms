@@ -38,6 +38,10 @@ test('Diverse tests', () => {
     fish = [[20, 'R'], [8, 'R'], [1, 'R'], [7, 'R'], [5, 'R'], [4, 'R'], [30, 'L']];
     finalFish = remainingFish(fish);
     expect(finalFish).toBe(1);
+
+    fish = [[20, 'R'], [8, 'L'], [1, 'R'], [7, 'L'], [5, 'R'], [4, 'L'], [30, 'R']];
+    finalFish = remainingFish(fish);
+    expect(finalFish).toBe(3);
 })
 
 test('Few fish', () => {
