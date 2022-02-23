@@ -14,8 +14,7 @@ class triangularArray {
         let index = r * (r + 1) / 2 + c;
 
         if (index > this.dimension - 1) {
-            console.log('Out of borders');
-            return;
+            throw new RangeError('The index is out of borders.')
         }
         this.elements[index] = value;
     }
@@ -25,8 +24,7 @@ class triangularArray {
         let index = r * (r + 1) / 2 + c;
 
         if (index > this.dimension - 1) {
-            console.log('Out of borders');
-            return;
+            throw new RangeError('The index is out of borders.')
         }
         return this.elements[index];
     }

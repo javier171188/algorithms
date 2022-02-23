@@ -38,45 +38,101 @@ describe('Basic tests', () => {
         }
     })
     test('Check index out of range', () => {
-        const data = new triangularArray(2);
-        data.set(3, 3, 10);
-        const element = data.get(3, 3);
-        expect(element).toEqual(undefined);
+        const data = new triangularArray(4);
+        let throwingFunction = () => {
+            data.set(8, 8, 10);
+        }
+
+        expect(throwingFunction).toThrow('The index is out of borders.');
+        expect(throwingFunction).toThrow(RangeError);
+
+        const noValue = data.get(0, 0);
+        expect(noValue).toEqual(undefined);
+
+        throwingFunction = () => {
+            data.get(8, 8, 10);
+        }
+        expect(throwingFunction).toThrow('The index is out of borders.');
+        expect(throwingFunction).toThrow(RangeError);
     })
 })
 
 
-test('Check small matrixes', () => {
-    let data = new triangularArray();
-    data.set(0, 0, 10);
-    let element = data.get(0, 0);
-    expect(element).toEqual(undefined);
+describe('Check small matrixes', () => {
 
-    data = new triangularArray(0);
-    data.set(0, 0, 10);
-    element = data.get(0, 0);
-    expect(element).toEqual(undefined);
+    test('No dimension', () => {
+        const data = new triangularArray();
+        const throwingFunction = () => {
+            data.set(0, 0, 10);
+        }
 
-    data = new triangularArray(1);
-    data.set(0, 0, 10);
-    element = data.get(0, 0);
-    expect(element).toEqual(10);
+        expect(throwingFunction).toThrow('The index is out of borders.');
+        expect(throwingFunction).toThrow(RangeError);
+    })
 
-    data.set(1, 0, 10);
-    element = data.get(1, 0);
-    expect(element).toEqual(undefined);
 
-    data = new triangularArray(2);
-    data.set(0, 0, 10);
-    element = data.get(0, 0);
-    expect(element).toEqual(10);
+    test('Dimension zero', () => {
+        const data = new triangularArray(0);
 
-    data.set(1, 0, 10);
-    element = data.get(1, 0);
-    expect(element).toEqual(10);
+        let throwingFunction = () => {
+            data.set(0, 0, 10);
+        }
+        expect(throwingFunction).toThrow('The index is out of borders.');
+        expect(throwingFunction).toThrow(RangeError);
 
-    data.set(1, 1, 10);
-    element = data.get(1, 1);
-    expect(element).toEqual(10);
+        throwingFunction = () => {
+            data.get(0, 0);
+        }
+        expect(throwingFunction).toThrow('The index is out of borders.');
+        expect(throwingFunction).toThrow(RangeError);
+    })
+
+    test('Dimension one', () => {
+        const data = new triangularArray(1);
+
+        data.set(0, 0, 10);
+        let element = data.get(0, 0);
+        expect(element).toEqual(10);
+
+        let throwingFunction = () => {
+            data.set(1, 0, 10);
+        }
+        expect(throwingFunction).toThrow('The index is out of borders.');
+        expect(throwingFunction).toThrow(RangeError);
+
+        throwingFunction = () => {
+            data.get(1, 0);
+        }
+        expect(throwingFunction).toThrow('The index is out of borders.');
+        expect(throwingFunction).toThrow(RangeError);
+    })
+
+
+    test('Dimension 2', () => {
+        const data = new triangularArray(2);
+        data.set(0, 0, 10);
+        let element = data.get(0, 0);
+        expect(element).toEqual(10);
+
+        data.set(1, 0, 10);
+        element = data.get(1, 0);
+        expect(element).toEqual(10);
+
+        data.set(1, 1, 10);
+        element = data.get(1, 1);
+        expect(element).toEqual(10);
+
+        let throwingFunction = () => {
+            data.get(1, 2);
+        }
+        expect(throwingFunction).toThrow('The index is out of borders.');
+        expect(throwingFunction).toThrow(RangeError);
+
+        throwingFunction = () => {
+            data.set(1, 2);
+        }
+        expect(throwingFunction).toThrow('The index is out of borders.');
+        expect(throwingFunction).toThrow(RangeError);
+    })
 })
 
