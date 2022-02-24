@@ -1,10 +1,5 @@
 'use strict';
 
-//const fish = [[2, 'L'], [6, 'R'], [1, 'R'], [7, 'L'], [5, 'L'], [4, 'R'], [3, 'L']];
-// const fish = [[2, 'L'], [8, 'R'], [1, 'R'], [7, 'L'], [5, 'L'], [4, 'R'], [3, 'L']];
-// const finalFish = remainingFish(fish);
-// console.log(finalFish);
-
 function remainingFish(fish) {
     const initialNumber = fish.length;
     const rightFish = [];
