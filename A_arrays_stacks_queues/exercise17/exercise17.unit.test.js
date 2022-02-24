@@ -108,7 +108,7 @@ describe('Check small matrixes', () => {
     })
 
 
-    test('Dimension 2', () => {
+    test('Dimension two.', () => {
         const data = new triangularArray(2);
         data.set(0, 0, 10);
         let element = data.get(0, 0);

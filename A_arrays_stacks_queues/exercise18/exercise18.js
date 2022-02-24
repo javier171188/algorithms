@@ -23,8 +23,7 @@ class SparseMatrix {
 
     getValue(row, col) {
         if (row > this.numberOfRows - 1 || col > this.numberOfCols - 1) {
-            console.log('Coordinates out of range');
-            return;
+            throw RangeError('Coordinates out of range');
         }
 
         let fullRow = this.values[row];
@@ -33,8 +32,7 @@ class SparseMatrix {
     }
     setValue(row, col, value) {
         if (row > this.numberOfRows - 1 || col > this.numberOfCols - 1) {
-            console.log('Coordinates out of range');
-            return;
+            throw RangeError('Coordinates out of range');
         }
 
         let fullRow = this.values[row];

@@ -21,11 +21,9 @@ describe('Basic tests', () => {
     })
 
     test('Check values', () => {
-        const nonExisting = sparseMatrix.getValue(10, 10);
         const zeroValue = sparseMatrix.getValue(2, 4);
         const nonZero = sparseMatrix.getValue(1, 10);
 
-        expect(nonExisting).toEqual(undefined);
         expect(zeroValue).toEqual(0);
         expect(nonZero).toEqual(110);
 
@@ -49,5 +47,19 @@ describe('Basic tests', () => {
         expect(sparseMatrix.getValue(0, 0)).toEqual(10);
         sparseMatrix.setValue(3, 8, 10);
         expect(sparseMatrix.getValue(3, 8)).toEqual(10);
+    })
+
+    test('Check out of range', () => {
+        let throwingFunction = () => {
+            sparseMatrix.setValue(10, 10, 20);
+        }
+        expect(throwingFunction).toThrow(RangeError);
+        expect(throwingFunction).toThrow('Coordinates out of range');
+
+        throwingFunction = () => {
+            sparseMatrix.getValue(10, 10);
+        }
+        expect(throwingFunction).toThrow(RangeError);
+        expect(throwingFunction).toThrow('Coordinates out of range');
     })
 })
