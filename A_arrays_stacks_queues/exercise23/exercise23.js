@@ -28,14 +28,20 @@ const LETTERS = {
     35: 'Z'
 }
 
-let baseTen = 10;
-const newBase = changeBase(15, 16);
-console.log(newBase);
-
-
 
 function changeBase(number, base) {
-    if (base > 36) throw Error('The maximum base is 36.')
+    if (typeof number !== 'number' || typeof base !== 'number') {
+        throw new TypeError('The type of the base and the number to be transformed must be "number".')
+    }
+    if (base > 36) throw RangeError('The maximum base is 36.')
+    if (base < 2) throw RangeError('The minimum base is 2.')
+
+    let negative = false;
+    if (number < 0) {
+        number = Math.abs(number);
+        negative = true;
+    }
+
     const stack = [];
     let newNumber = '';
 
@@ -54,5 +60,10 @@ function changeBase(number, base) {
     while (stack.length > 0) {
         newNumber += stack.pop();
     }
+    if (negative) {
+        newNumber = '-' + newNumber;
+    }
     return newNumber;
 }
+
+module.exports = { changeBase };
