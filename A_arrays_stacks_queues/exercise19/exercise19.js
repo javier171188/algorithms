@@ -1,20 +1,18 @@
 'use strict';
 
 function checkBalance(parenthesis) {
-    const nParent = parenthesis.length;
-    const positions = [];
+    let positions = 0;
 
-    for (let i = 0; i < nParent; i++) {
-        if (parenthesis[i] === '(') positions.push(i);
-        if (parenthesis[i] === ')') {
-            if (positions.length === 0) return { balanced: false, missing: nParent - (i + 1) };
-            positions.pop();
+    for (let p of parenthesis) {
+        if (p === '(') positions += 1;
+        if (p === ')') {
+            if (positions === 0) return { balanced: false, missing: 1 };
+            positions -= 1;
         };
     }
 
-    if (positions.length > 0) {
-        let firstPosition = positions[0];
-        return { balanced: false, missing: nParent - (firstPosition + 1) };
+    if (positions > 0) {
+        return { balanced: false, missing: positions };
     }
     return { balanced: true, missing: 0 }
 }

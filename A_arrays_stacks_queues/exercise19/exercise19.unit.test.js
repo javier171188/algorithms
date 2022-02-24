@@ -9,11 +9,11 @@ test('Basic tests', () => {
 
     parenthesis = "(()()()()))(((())))()()()()";
     const notOpening = checkBalance(parenthesis);
-    expect(notOpening).toEqual({ balanced: false, missing: 16 });
+    expect(notOpening).toEqual({ balanced: false, missing: 1 });
 
     parenthesis = "(()()()()(((())))()()()()";
     const notClosing = checkBalance(parenthesis);
-    expect(notClosing).toEqual({ balanced: false, missing: 24 })
+    expect(notClosing).toEqual({ balanced: false, missing: 1 })
 })
 
 test('Diverse tests', () => {
@@ -25,26 +25,45 @@ test('Diverse tests', () => {
     result = checkBalance(parenthesis);
     expect(result).toEqual({ balanced: true, missing: 0 });
 
-    parenthesis = '(((((((((((()))))))))))))';
+    parenthesis = "(((((((((((()))))))))))))";
     result = checkBalance(parenthesis);
-    expect(result).toEqual({ balanced: false, missing: 0 });
+    expect(result).toEqual({ balanced: false, missing: 1 });
 
-    parenthesis = '(((((((((((()))))))))))';
+    parenthesis = "(((((((((((()))))))))))";
     result = checkBalance(parenthesis);
-    expect(result).toEqual({ balanced: false, missing: 22 });
+    expect(result).toEqual({ balanced: false, missing: 1 });
 
-    parenthesis = '((((((((((((((((((((';
+    parenthesis = "((((((((((((((((((((";
     result = checkBalance(parenthesis);
-    expect(result).toEqual({ balanced: false, missing: 19 });
+    expect(result).toEqual({ balanced: false, missing: 20 });
+
+    parenthesis = "((()((((((()(((((())((((((";
+    result = checkBalance(parenthesis);
+    expect(result).toEqual({ balanced: false, missing: 18 });
 
     parenthesis = ')))))))))))))';
     result = checkBalance(parenthesis);
-    expect(result).toEqual({ balanced: false, missing: 12 });
+    expect(result).toEqual({ balanced: false, missing: 1 });
 
     parenthesis = '()()(';
     result = checkBalance(parenthesis);
-    expect(result).toEqual({ balanced: false, missing: 0 });
+    expect(result).toEqual({ balanced: false, missing: 1 });
 
+    parenthesis = '(((';
+    result = checkBalance(parenthesis);
+    expect(result).toEqual({ balanced: false, missing: 3 });
+
+    parenthesis = '())))';
+    result = checkBalance(parenthesis);
+    expect(result).toEqual({ balanced: false, missing: 1 });
+
+    parenthesis = '())()';
+    result = checkBalance(parenthesis);
+    expect(result).toEqual({ balanced: false, missing: 1 });
+
+    parenthesis = '())())';
+    result = checkBalance(parenthesis);
+    expect(result).toEqual({ balanced: false, missing: 1 });
 })
 
 test('Small strings', () => {
@@ -54,11 +73,11 @@ test('Small strings', () => {
 
     parenthesis = ')';
     result = checkBalance(parenthesis);
-    expect(result).toEqual({ balanced: false, missing: 0 })
+    expect(result).toEqual({ balanced: false, missing: 1 })
 
     parenthesis = '(';
     result = checkBalance(parenthesis);
-    expect(result).toEqual({ balanced: false, missing: 0 })
+    expect(result).toEqual({ balanced: false, missing: 1 })
 
     parenthesis = '()';
     result = checkBalance(parenthesis);
