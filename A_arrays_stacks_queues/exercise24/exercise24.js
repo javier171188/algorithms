@@ -1,12 +1,7 @@
 'use strict';
 const seedrandom = require('seedrandom');
 
-// const players = [];
-
-// const player = hotPotato(players, 'seed');
-// console.log(player);
-
-function getRandomNumber(seed) {
+function getRandomNumberFunction(seed) {
     if (seed) {
         Math.random = seedrandom(seed);
     }
@@ -20,26 +15,32 @@ function getRandomNumber(seed) {
 }
 
 function hotPotato(players, seed) {
-    if (players.length < 1) throw new Error('There must be at least one player.')
+    if (players.length < 2) throw new Error('There must be at least two players.')
+    const checkPlayers = new Set(players);
+    if (checkPlayers.size !== players.length) {
+        throw new Error('Every player can be at only one position of the list.')
+    }
     const queue = [];
+    const eliminated = [];
     for (let p of players) {
         queue.push(p);
     }
 
-    const generateNumber = getRandomNumber(seed);
-
+    let generateNumber = getRandomNumberFunction(seed);
     let randomNumber = generateNumber();
 
-    let currentPlayer;
-    while (randomNumber <= 52) {
-        // console.log(randomNumber);
-        //console.log(Math.random())
-        currentPlayer = queue.shift();
-        queue.push(currentPlayer);
+    while (queue.length > 1) {
+        let currentPlayer = queue.shift();
+        if (randomNumber < 60) {
+            queue.push(currentPlayer);
+        } else {
+            if (seed) seed = seed + '1';
+            generateNumber = getRandomNumberFunction(seed);
+            eliminated.push(currentPlayer);
+        }
         randomNumber = generateNumber();
-        //console.log(currentPlayer);
     }
-    return currentPlayer;
+    return { winner: queue[0], eliminated };
 }
 
 module.exports = { hotPotato };
