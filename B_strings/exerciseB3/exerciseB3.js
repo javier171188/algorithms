@@ -29,26 +29,26 @@ const WORDS = ["atom", "bomb", "meals", "males", "saint", "satin",
     "mash", "hams"]
 
 let permutation = ''
+let word = 'mash'
+let wordLength = word.length;
+let anagram = findAnagram(word);
+
 
 function findAnagram(word) {
-
+    if (word.length < 2) return null;
     if (word.length === 2) {
-        // console.log(permutation + word[0]);
-        // console.log(permutation + word[1]);
-        permutation = '';
+        console.log(permutation + word[0] + word[1]);
+        console.log(permutation + word[1] + word[0]);
         return
     }
 
-    console.log(word.slice(0, 1 + 1) + word.slice(1 + 2,));
-
-    // for (let i = 0; i < word.length; i++) {
-    //     permutation += word[i];
-    //     console.log(i);
-    //     findAnagram(word.slice(0, i + 1) + word.slice(i + 2,));
-    //     console.log(word.slice(0, i + 1) + word.slice(i + 2,));
-    // }
+    for (let i = 0; i < word.length; i++) {
+        let tempPerm = permutation;
+        permutation += word[i];
+        findAnagram(word.slice(0, i) + word.slice(i + 1,));
+        permutation = tempPerm;
+    }
 }
 
-let word = 'mash'
-let anagram = findAnagram(word);
+
 
