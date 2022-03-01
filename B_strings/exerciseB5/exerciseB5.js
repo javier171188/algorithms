@@ -1,17 +1,12 @@
 'use strict';
 
-const string1 = 'a';
-const string2 = 'a';
-
-const isAPermutation = isPermutation(string1, string2);
-console.log(isAPermutation);
-
 function isPermutation(string1, string2) {
     if (string1.length < 1 && string2.length < 1) return true;
     if (string2.length < 1) return false;
+    if (string1.length === 1 && string2.length === 1) return string1 === string2;
+
     let permutation = '';
     let permuted = false;
-
 
     getPermutations(string1);
 
