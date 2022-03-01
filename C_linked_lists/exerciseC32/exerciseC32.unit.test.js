@@ -1,6 +1,6 @@
 'use strict';
 const { findLoopNode } = require('./exerciseC32');
-const { Node, createLinkedList } = require('./linkedList')
+const { Node, createLinkedList } = require('../linkedList')
 
 test('Basic test', () => {
     let head = createLinkedList([1, 2, 2, 3, 3, 6, 7, 2, 1], 3);

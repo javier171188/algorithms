@@ -1,5 +1,5 @@
 'use strict';
-const { createLinkedList } = require('./linkedList');
+const { createLinkedList } = require('../linkedList');
 const findMiddleNode = require('./exerciseC31');
 
 test('Basic tests', () => {
