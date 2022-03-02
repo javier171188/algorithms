@@ -28,4 +28,15 @@ function createLinkedList(valuesArray, loopPosition = null) {
     return head;
 }
 
-module.exports = { Node, createLinkedList };
+function getLinkedListValues(head) {
+    let currentNode = head;
+    const values = [];
+    while (currentNode.next) {
+        values.push(currentNode.value);
+        currentNode = currentNode.next;
+    }
+    values.push(currentNode.value);
+    return values;
+}
+
+module.exports = { Node, createLinkedList, getLinkedListValues };
