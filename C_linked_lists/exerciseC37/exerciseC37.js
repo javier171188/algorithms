@@ -34,7 +34,7 @@ class PriorityQueue {
             this.head = newNode;
             return;
         }
-        let newNode = new Node(value, priority);
+
         if (!this.head.next) {
             if (priority > this.head.priority) {
                 newNode.next = this.head;
