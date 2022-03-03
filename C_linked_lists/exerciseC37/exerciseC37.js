@@ -1,7 +1,4 @@
 'use strict';
-
-const { getLinkedListValues } = require('../linkedList');
-
 class Node {
     constructor(val, priority) {
         this.value = val;
@@ -11,13 +8,12 @@ class Node {
 }
 class PriorityQueue {
     constructor() {
-        this.head = new Node(null, 0);
+        this.head;
     }
 
-    enqueue(value, priority) {
-        if (this.head.value === null) {
-            this.head.value = value;
-            this.head.priority = priority;
+    enqueue(value, priority = 1) {
+        if (!this.head) {
+            this.head = new Node(value, priority);
             return;
         }
         let newNode = new Node(value, priority);
@@ -55,17 +51,13 @@ class PriorityQueue {
         }
         return;
     }
+
+    dequeue() {
+        if (!this.head) throw new Error('The queue is empty.');
+        let returnValue = this.head.value;
+        this.head = this.head.next;
+        return returnValue;
+    }
 }
 
-const priorityQueue = new PriorityQueue();
-priorityQueue.enqueue('A', 1);
-let values = getLinkedListValues(priorityQueue.head);
-//console.log(values);
-
-priorityQueue.enqueue('B', 2);
-values = getLinkedListValues(priorityQueue.head);
-//console.log(values);
-
-priorityQueue.enqueue('C', 1);
-values = getLinkedListValues(priorityQueue.head);
-console.log(values);
+module.exports = PriorityQueue;
