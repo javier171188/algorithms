@@ -1,4 +1,7 @@
 'use strict';
+
+const { getLinkedListValues } = require('../linkedList');
+
 class Node {
     constructor(val, priority) {
         this.value = val;
@@ -14,6 +17,21 @@ class PriorityQueue {
     enqueue(value, priority = 1) {
         if (!this.head) {
             this.head = new Node(value, priority);
+            return;
+        }
+        let newNode = new Node(value, priority);
+        if (!this.head.next) {
+            if (priority > this.head.priority) {
+                newNode.next = this.head;
+                this.head = newNode;
+            } else {
+                this.head.next = newNode;
+            }
+            return;
+        }
+        if (this.head.priority < priority) {
+            newNode.next = this.head;
+            this.head = newNode;
             return;
         }
         let newNode = new Node(value, priority);
