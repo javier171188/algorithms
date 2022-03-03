@@ -1,15 +1,5 @@
 'use strict';
 
-const { createLinkedList, getLinkedListValues } = require('../linkedList');
-
-const values = ['A', 'B', 'C', 'D', 'E', 'F', 'G'];
-const linkedList = createLinkedList(values);
-
-const reversedList = reverseLinkedList(linkedList);
-const reversedValues = getLinkedListValues(reversedList);
-
-//console.log(reversedList)
-
 function reverseLinkedList(linkedList) {
     if (!linkedList || !linkedList.next) return linkedList;
 
@@ -18,12 +8,14 @@ function reverseLinkedList(linkedList) {
     let nextNode = linkedList.next;
 
     while (nextNode) {
-        nextNode = currentNode.next;
         currentNode.next = previousNode;
-        console.log(currentNode);
         previousNode = currentNode;
         currentNode = nextNode;
-
+        nextNode = nextNode.next;
     }
-    return nextNode;
+
+    currentNode.next = previousNode;
+    return currentNode;
 }
+
+module.exports = reverseLinkedList;
