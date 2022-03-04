@@ -1,8 +1,12 @@
 'use strict';
-const { circularQueue } = require('./exercise12');
+const { CircularQueue } = require('./exercise12');
 
-describe('Basic test', () => {
-    const circQue = new circularQueue(5);
+describe('Test basic properties', () => {
+    const circQue = new CircularQueue(5);
+
+    test('It is empty at the beginning', () => {
+        expect(circQue.queue).toEqual([undefined, undefined, undefined, undefined, undefined]);
+    })
 
     test('Test enqueue', () => {
         circQue.enqueue(14);
@@ -10,51 +14,51 @@ describe('Basic test', () => {
         circQue.enqueue(23);
         circQue.enqueue(-6);
         circQue.enqueue(7);
-        expect(circQue.queue).toEqual([14, 22, 23, -6, 7]);
-        expect(circQue.front).toEqual(0);
-        expect(circQue.rear).toEqual(4);
+
+        const values = circQue.queue;
+        const front = circQue.front;
+        const rear = circQue.rear;
+
+        const expected = [values, front, rear];
+        expect(expected).toEqual([[14, 22, 23, -6, 7], 0, 4]);
     })
 
     test('Override  elements when the queue storage is full', () => {
         circQue.enqueue(9);
-        expect(circQue.queue).toEqual([9, 22, 23, -6, 7]);
-        expect(circQue.front).toEqual(1);
-        expect(circQue.rear).toEqual(0);
-
         circQue.enqueue(10);
-        expect(circQue.queue).toEqual([9, 10, 23, -6, 7]);
-        expect(circQue.front).toEqual(2);
-        expect(circQue.rear).toEqual(1);
+
+        const values = circQue.queue;
+        const front = circQue.front;
+        const rear = circQue.rear;
+
+        const expected = [values, front, rear];
+
+        expect(expected).toEqual([[9, 10, 23, -6, 7], 2, 1]);
     })
 
     let dequeued;
     test('Test dequeue', () => {
+        circQue.dequeue();
         dequeued = circQue.dequeue();
-        expect(dequeued).toEqual(23);
-        expect(circQue.front).toEqual(3);
-        expect(circQue.rear).toEqual(1);
 
-        dequeued = circQue.dequeue();
-        expect(dequeued).toEqual(-6);
-        expect(circQue.front).toEqual(4);
-        expect(circQue.rear).toEqual(1);
+        const front = circQue.front;
+        const rear = circQue.rear;
+        const expected = [dequeued, front, rear];
+
+        expect(expected).toEqual([-6, 4, 1]);
     })
 
     test('Test add element after dequeue', () => {
         circQue.enqueue(10);
-        expect(circQue.queue).toEqual([9, 10, 10, -6, 7]);
-        expect(circQue.front).toEqual(4);
-        expect(circQue.rear).toEqual(2);
-
         circQue.enqueue(11);
-        expect(circQue.queue).toEqual([9, 10, 10, 11, 7]);
-        expect(circQue.front).toEqual(4);
-        expect(circQue.rear).toEqual(3);
-
         circQue.enqueue(12);
-        expect(circQue.queue).toEqual([9, 10, 10, 11, 12]);
-        expect(circQue.front).toEqual(0);
-        expect(circQue.rear).toEqual(4);
+
+        const values = circQue.queue;
+        const front = circQue.front;
+        const rear = circQue.rear;
+        const expected = [values, front, rear];
+
+        expect(expected).toEqual([[9, 10, 10, 11, 12], 0, 4]);
     })
 
     test('Test display', () => {
@@ -64,15 +68,19 @@ describe('Basic test', () => {
 
         circQue.display();
 
-        expect(console.log.mock.calls[0][0]).toEqual(10);
-        expect(console.log.mock.calls[1][0]).toEqual(10);
-        expect(console.log.mock.calls[2][0]).toEqual(11);
-        expect(console.log.mock.calls[3][0]).toEqual(12);
-        expect(console.log.mock.calls[4][0]).toEqual(8);
+        const queCalls = [
+            console.log.mock.calls[0][0],
+            console.log.mock.calls[1][0],
+            console.log.mock.calls[2][0],
+            console.log.mock.calls[3][0],
+            console.log.mock.calls[4][0]
+        ]
+
+        expect(queCalls).toEqual([10, 10, 11, 12, 8]);
     })
 
     test('Test error when dequeue an empty queue', () => {
-        const errorQueue = new circularQueue(7);
+        const errorQueue = new CircularQueue(7);
         errorQueue.enqueue(1);
         errorQueue.enqueue(2)
         errorQueue.enqueue(3)
@@ -86,16 +94,14 @@ describe('Basic test', () => {
         const throwFunction = () => {
             errorQueue.dequeue();
         }
-        expect(throwFunction).toThrow(Error);
         expect(throwFunction).toThrow('The queue is empty.');
     })
 
     test('Test correct type of size', () => {
         const throwFunction = () => {
-            const circQue = new circularQueue('size');
+            const circQue = new CircularQueue('size');
         }
 
-        expect(throwFunction).toThrow(TypeError);
         expect(throwFunction).toThrow("The size of the queue must be a positive number.");
     })
 });
@@ -103,41 +109,66 @@ describe('Basic test', () => {
 describe('Small sizes', () => {
     test('No zero size queue', () => {
         const throwFunction = () => {
-            new circularQueue(0)
+            new CircularQueue(0);
         }
-        expect(throwFunction).toThrow(RangeError);
         expect(throwFunction).toThrow("The minimum size of the queue is 1.");
     })
 
-    test('One sized circular queue', () => {
-        const circQue = new circularQueue(1);
-        expect(circQue.queue).toEqual([undefined]);
+    describe('One sized circular queue', () => {
+        const circQue = new CircularQueue(1);
 
-        circQue.enqueue(14);
-        expect(circQue.queue).toEqual([14]);
-        expect(circQue.front).toEqual(0);
-        expect(circQue.rear).toEqual(0);
+        let values;
+        let front;
+        let rear;
+        let expected;
+        test('Check first enqueue', () => {
+            circQue.enqueue(14);
 
-        circQue.enqueue(22);
-        expect(circQue.queue).toEqual([22]);
-        expect(circQue.front).toEqual(0);
-        expect(circQue.rear).toEqual(0);
+            values = circQue.queue;
+            front = circQue.front;
+            rear = circQue.rear;
 
-        const dequeued = circQue.dequeue();
-        expect(circQue.queue).toEqual([22]);
-        expect(dequeued).toEqual(22);
-        expect(circQue.front).toEqual(-1);
-        expect(circQue.rear).toEqual(-1);
+            expected = [values, front, rear];
 
-        const throwFunction = () => {
-            circQue.dequeue();
-        }
-        expect(throwFunction).toThrow(Error);
-        expect(throwFunction).toThrow('The queue is empty.')
+            expect(expected).toEqual([[14], 0, 0]);
+        })
 
-        circQue.enqueue(10);
-        expect(circQue.queue).toEqual([10]);
-        expect(circQue.front).toEqual(0);
-        expect(circQue.rear).toEqual(0);
+        test('Check erase when it is full', () => {
+            circQue.enqueue(22);
+
+            values = circQue.queue;
+            front = circQue.front;
+            rear = circQue.rear;
+
+            expected = [values, front, rear];
+            expect(expected).toEqual([[22], 0, 0]);
+        })
+
+        test('Check dequeue', () => {
+            const dequeued = circQue.dequeue();
+            front = circQue.front;
+            rear = circQue.rear;
+            expected = [dequeued, front, rear];
+
+            expect(expected).toEqual([22, -1, -1]);
+        })
+
+        test('Throw error when dequeueing an empty queue', () => {
+            const throwFunction = () => {
+                circQue.dequeue();
+            }
+            expect(throwFunction).toThrow('The queue is empty.');
+        })
+
+        test('Check correct enqueue after empty the queue', () => {
+            circQue.enqueue(10);
+
+            values = circQue.queue;
+            front = circQue.front;
+            rear = circQue.rear;
+
+            expected = [values, front, rear];
+            expect(expected).toEqual([[10], 0, 0]);
+        })
     })
 })

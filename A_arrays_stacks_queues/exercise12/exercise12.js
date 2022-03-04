@@ -1,7 +1,7 @@
 'use strict';
 //https://www.geeksforgeeks.org/circular-queue-set-1-introduction-array-implementation/
 
-class circularQueue {
+class CircularQueue {
     constructor(size) {
         if (typeof size !== 'number') {
             throw new TypeError("The size of the queue must be a positive number.")
@@ -62,4 +62,4 @@ class circularQueue {
     }
 }
 
-module.exports = { circularQueue };
+module.exports = { CircularQueue };
