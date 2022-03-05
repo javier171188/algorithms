@@ -1,16 +1,15 @@
 'use strict';
 const fs = require('fs');
-const { byLengthAndLetters } = require('./words');
-
-
+const WORDSJSON = fs.readFileSync('./dictionary.json', 'utf8');
+const WORDS = JSON.parse(WORDSJSON);
 
 function findAnagram(word) {
     const wordLength = word.length;
     if (wordLength < 2) return
     word = word.toLowerCase();
-    if (Object.keys(byLengthAndLetters[wordLength]).length < 1) return false;
+    if (Object.keys(WORDS[wordLength]).length < 1) return false;
 
-    const sameLengthWords = byLengthAndLetters[wordLength];
+    const sameLengthWords = WORDS[wordLength];
     const quantityLetters = countLetters(word);
 
     let anagrams = [];

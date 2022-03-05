@@ -2,51 +2,71 @@
 //https://www.sightwordsgame.com/vocabulary-words/word-play/anagrams/
 const { findAnagram } = require('./exerciseB3');
 
-test('Basic tests', () => {
-    let word = 'melon';
-    let anagram = findAnagram(word);
-    expect(anagram).toEqual('lemon');
+describe('Easy words', () => {
+    test('Check melon', () => {
+        const word = 'melon';
+        const anagram = findAnagram(word);
+        expect(anagram).toEqual('lemon');
+    })
 
-    word = 'dense';
-    anagram = findAnagram(word);
-    expect(anagram).toEqual('needs');
+    test('Check dense', () => {
+        const word = 'dense';
+        const anagram = findAnagram(word);
+        expect(anagram).toEqual('needs');
+    })
 
-    word = 'fsalkda';
-    anagram = findAnagram(word);
-    expect(anagram).toEqual(undefined);
+
+    test('"Word" with no anagram', () => {
+        const word = 'fsalkda';
+        const anagram = findAnagram(word);
+        expect(anagram).toEqual(undefined);
+    })
+
 
 })
 
-test('Check symmetry', () => {
-    let word = 'melon';
-    let anagram = findAnagram(word);
-    expect(anagram).toEqual('lemon');
+test('Check symmetry. ', () => {
+    const word1 = 'melon';
+    const anagram1 = findAnagram(word1);
 
-    word = 'lemon';
-    anagram = findAnagram(word);
-    expect(anagram).toEqual('melon');
+    const word2 = 'lemon';
+    const anagram2 = findAnagram(word2);
+
+    const expected = [anagram1, anagram2];
+    expect(expected).toEqual([word2, word1]);
 })
 
-test('Short strings', () => {
-    let word = '';
-    let anagram = findAnagram(word);
-    expect(anagram).toEqual(undefined);
+describe('Short strings', () => {
+    test('Zero size string', () => {
+        const word = '';
+        const anagram = findAnagram(word);
+        expect(anagram).toEqual(undefined);
+    })
 
-    word = 'a';
-    anagram = findAnagram(word);
-    expect(anagram).toEqual(undefined);
+    test('One size string', () => {
+        const word = 'a';
+        const anagram = findAnagram(word);
+        expect(anagram).toEqual(undefined);
+    })
 
-    word = 'on';
-    anagram = findAnagram(word);
-    expect(anagram).toEqual('no');
+    test('Two size string', () => {
+        const word = 'on';
+        const anagram = findAnagram(word);
+        expect(anagram).toEqual('no');
+    })
+
 })
 
-test('Capital letters', () => {
-    let word = "Mars";
-    let anagram = findAnagram(word);
-    expect(anagram).toEqual('rams');
+describe('Capital letters', () => {
+    test('Capital letter at the beginning', () => {
+        const word = "Mars";
+        const anagram = findAnagram(word);
+        expect(anagram).toEqual('rams');
+    })
 
-    word = "ocEaN";
-    anagram = findAnagram(word);
-    expect(anagram).toEqual('canoe');
+    test('Capital letters in the middle and at the end', () => {
+        const word = "ocEaN";
+        const anagram = findAnagram(word);
+        expect(anagram).toEqual('canoe');
+    })
 })
