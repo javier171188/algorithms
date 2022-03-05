@@ -1,4 +1,7 @@
 'use strict';
+const fs = require('fs');
+
+
 const WORDS = ["a",
     "abandon",
     "ability",
@@ -3040,10 +3043,6 @@ const WORDS = ["a",
 
 const LETTERS = 'abcdefghijklmnopqrstuvwxyz';
 
-
-// let wordsLengths = WORDS.map(w => w.length);
-// let maxLength = Math.max(...wordsLengths);
-
 let orderedByLength = {
     '1': [],
     '2': [],
@@ -3066,7 +3065,6 @@ for (let w of WORDS) {
     let wordLength = String(w.length);
     orderedByLength[wordLength].push(w);
 }
-//console.log(orderedByLength);
 
 let byLengthAndLetters = {
     '1': {},
@@ -3092,7 +3090,6 @@ for (let num in byLengthAndLetters) {
     for (let word of orderedByLength[num]) {
         let numbLetters = countLetters(word);
         for (let l in numbLetters) {
-            //console.log(l, numbLetters[l]);
             if (Object.keys(byLengthAndLetters[num]).includes(l)) {
                 if (Object.keys(byLengthAndLetters[num][l]).includes(String(numbLetters[l]))) {
                     byLengthAndLetters[num][l][String(numbLetters[l])].push(word);
@@ -3108,10 +3105,6 @@ for (let num in byLengthAndLetters) {
         }
     }
 }
-// let letters = countLetters('aaabbbcdd');
-// console.log(letters);
-
-console.log(byLengthAndLetters);
 
 function countLetters(word) {
     let numberLetters = {};
@@ -3125,6 +3118,13 @@ function countLetters(word) {
     return numberLetters;
 }
 
+const dictionary = JSON.stringify(byLengthAndLetters);
+
+fs.writeFile("dictionary.json", dictionary, function (err) {
+    if (err) {
+        console.log(err);
+    }
+});
 
 module.exports = { WORDS, byLengthAndLetters, countLetters };
 
