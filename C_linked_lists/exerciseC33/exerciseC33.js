@@ -1,30 +1,30 @@
 'use strict';
 
-function findKLast(linkedList, k) {
+function findKLast(linkedList, k = 1) {
     if (k < 1) throw new RangeError('The number k must be greater than zero.');
     if (!linkedList) return null;
-    let currentNode = linkedList;
-    let checkerNode = linkedList;
-    let searchedNode = linkedList;
-    let count = 0;
 
-    while (currentNode.next) {
-        if (count < k - 1) {
-            count += 1;
-        } else {
-            searchedNode = searchedNode.next;
-        }
-        currentNode = currentNode.next;
-        if (checkerNode.next && checkerNode.next.next) {
-            checkerNode = checkerNode.next.next;
-            if (checkerNode === currentNode) return null;
-        }
+    let firstNode = linkedList;
+    let secondNode = linkedList;
 
+    while (firstNode && firstNode.next) {
+        firstNode = firstNode.next.next;
+        secondNode = secondNode.next;
+        if (firstNode === secondNode) return null;
     }
 
-    if (count < k - 1) return null;
+    firstNode = linkedList;
+    secondNode = linkedList;
+    for (let i = 1; i < k; i++) {
+        if (!firstNode.next) return null;
+        firstNode = firstNode.next;
+    }
 
-    return searchedNode;
+    while (firstNode.next) {
+        firstNode = firstNode.next;
+        secondNode = secondNode.next;
+    }
+    return secondNode;
 }
 
 module.exports = findKLast;
