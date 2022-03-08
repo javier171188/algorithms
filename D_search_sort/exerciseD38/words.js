@@ -1,4 +1,5 @@
 'use strict';
+const fs = require('fs');
 
 const WORDS = ['A',
     'ABANDON',
@@ -3033,5 +3034,7 @@ function countLetters(word) {
     return numberLetters;
 }
 
+const dictionary = JSON.stringify(trieWords);
+fs.writeFile("dictionary.json", dictionary, () => {
 
-module.exports = { trieWords, countLetters };
+});

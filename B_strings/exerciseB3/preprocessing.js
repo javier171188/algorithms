@@ -3119,5 +3119,7 @@ function countLetters(word) {
 
 const dictionary = JSON.stringify(byLengthAndLetters);
 
-fs.writeFile("dictionary.json", dictionary);
+fs.writeFile("dictionary.json", dictionary, () => {
+
+});
 

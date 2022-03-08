@@ -1,12 +1,7 @@
 'use strict';
-const { trieWords } = require('./words');
-const { countLetters } = require('./words');
-
-//const letters1 = ['E', 'S', 'R', 'A', 'T', 'I', 'N', 'D', 'A'];
-//const letters1 = ['C', 'A', 'T'];
-// const letters1 = ['💻', '📷'];
-// let longest1 = getLongestWord(letters1);
-// console.log(longest1);
+const fs = require('fs');
+const WORDSJSON = fs.readFileSync('./dictionary.json', 'utf8');
+const WORDS = JSON.parse(WORDSJSON);
 
 function getLongestWord(letters) {
     function exploreBranch(dic) {
@@ -19,7 +14,6 @@ function getLongestWord(letters) {
                     }
                 }
                 if (lessLetters) {
-                    //words.push(proposedWord);
                     if (maxWord.length <= proposedWord.length) {
                         maxWord = proposedWord;
                     }
@@ -31,7 +25,6 @@ function getLongestWord(letters) {
                 continue;
             } else {
                 proposedWord += letter;
-                //currentLetter = letter;
                 exploreBranch(dic[letter]);
             }
         }
@@ -39,15 +32,24 @@ function getLongestWord(letters) {
     }
     letters = letters.map(l => l.toUpperCase());
     const numLetters = countLetters(letters.join(''));
-
     let proposedWord = '';
-    //let words = [];
     let maxWord = '';
-    //let currentLetter;
 
-    exploreBranch(trieWords);
+    exploreBranch(WORDS);
     if (maxWord.length < 1) return undefined;
     return maxWord;
+}
+
+function countLetters(word) {
+    let numberLetters = {};
+    for (let l of word) {
+        if (Object.keys(numberLetters).includes(l)) {
+            numberLetters[l] += 1;
+        } else {
+            numberLetters[l] = 1;
+        }
+    }
+    return numberLetters;
 }
 
 module.exports = getLongestWord;
