@@ -1,11 +1,19 @@
 'use strict';
-const values = [2, 5, 8, 4, 10, 3, 9, 7, 2, 4];
-
-const secondLargest = findSecondLargest(values);
 
 function findSecondLargest(values) {
-    for (let v of values) {
-        console.log(v);
-    }
+    if (values.length < 2) return undefined;
 
+    let secondMax = Math.min(values[0], values[1]);
+    let maxValues = [secondMax, secondMax];
+
+    for (let v of values) {
+        if (v > maxValues[1]) {
+            maxValues = [maxValues[1], v];
+        } else if (v > maxValues[0]) {
+            maxValues[0] = v;
+        }
+    }
+    return maxValues[0];
 }
+
+module.exports = findSecondLargest;
