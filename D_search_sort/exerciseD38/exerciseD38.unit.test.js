@@ -1,7 +1,6 @@
 'use strict';
 
 const getLongestWord = require('./exerciseD38.js');
-// https://stackoverflow.com/questions/11935175/sampling-a-random-subset-from-an-array
 
 test('Basic test', () => {
     const letters1 = ['E', 'S', 'R', 'A', 'T', 'I', 'N', 'D', 'A'];
