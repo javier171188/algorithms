@@ -3010,11 +3010,14 @@ for (let word of WORDS) {
 
 function addToTrie(word) {
     let currentLevel = trieWords;
-    for (let letter of word) {
-        if (!Object.keys(currentLevel).includes(letter)) {
-            currentLevel[letter] = {};
+    for (let i = 0; i < word.length; i++) {
+        if (!Object.keys(currentLevel).includes(word[i])) {
+            currentLevel[word[i]] = {};
         }
-        currentLevel = currentLevel[letter];
+        if (i === word.length - 1) {
+            currentLevel[word[i]]['end'] = true;
+        }
+        currentLevel = currentLevel[word[i]];
     }
 }
 

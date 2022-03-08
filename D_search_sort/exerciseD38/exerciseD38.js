@@ -2,9 +2,9 @@
 const trieWords = require('./words');
 
 const letters1 = ['E', 'S', 'R', 'A', 'T', 'I', 'N', 'D', 'A'];
+//const letters1 = ['C', 'A', 'T'];
 let longest1 = getLongestWord(letters1);
 console.log(longest1);
-
 // let word = 'word';
 // console.log(word.slice(0, -1));
 
@@ -17,33 +17,22 @@ function getLongestWord(letters) {
     let maxWord = '';
     let currentLetter;
 
-    exploreBranch(trieWords, letters);
+    exploreBranch(trieWords);
     console.log(words);
 
-    function exploreBranch(dic, letters) {
-        if (Object.keys(dic).length < 1) {
-            //console.log(proposedWord);
-            words.push(proposedWord);
-            if (proposedWord.length > maxWord.length) maxWord = proposedWord;
-            proposedWord = proposedWord.slice(0, -1);
-            //refLetters = [...letters];
-            // console.log(refLetters);
-            return;
-        }
-
+    function exploreBranch(dic) {
         for (let letter of Object.keys(dic)) {
+            if (letter === 'end') {
+                words.push(proposedWord);
+                continue;
+            }
             let index = refLetters.indexOf(letter);
             if (index < 0) {
-                // refLetters.push(currentLetter);
-                // console.log(refLetters);
                 continue;
             } else {
                 proposedWord += letter;
                 currentLetter = letter;
-                //refLetters.splice(index, 1);
-                // console.log(proposedWord);
-                // console.log(refLetters);
-                exploreBranch(dic[letter], letters);
+                exploreBranch(dic[letter]);
             }
         }
         proposedWord = proposedWord.slice(0, -1);
