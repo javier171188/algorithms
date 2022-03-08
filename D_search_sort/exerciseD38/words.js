@@ -3015,10 +3015,23 @@ function addToTrie(word) {
             currentLevel[word[i]] = {};
         }
         if (i === word.length - 1) {
-            currentLevel[word[i]]['end'] = true;
+            currentLevel[word[i]]['end'] = countLetters(word);
         }
         currentLevel = currentLevel[word[i]];
     }
 }
 
-module.exports = trieWords;
+function countLetters(word) {
+    let numberLetters = {};
+    for (let l of word) {
+        if (Object.keys(numberLetters).includes(l)) {
+            numberLetters[l] += 1;
+        } else {
+            numberLetters[l] = 1;
+        }
+    }
+    return numberLetters;
+}
+
+
+module.exports = { trieWords, countLetters };
