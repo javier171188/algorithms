@@ -1,19 +1,4 @@
 'use strict';
-//Save data
-//const fs = require('fs');
-// const data = '6,4';
-// fs.writeFile("data.txt", data, () => {
-
-// });
-/////////
-
-// const readableStream = fs.createReadStream(__dirname + '/data.txt', { highWaterMark: 1 });
-// readableStream.setEncoding('UTF8');
-
-// const number = getSecondLargestStream(readableStream);
-// number.then(console.log).catch(console.log);
-//console.log(number.then());
-
 async function getSecondLargestStream(stream) {
     let v;
     let maxValues = [undefined, undefined];
