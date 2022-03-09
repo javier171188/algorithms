@@ -1,7 +1,7 @@
 'use strict';
 //Save data
-// const fs = require('fs');
-// const data = '1,1,2,3,4,5,7,8';
+//const fs = require('fs');
+// const data = '6,4';
 // fs.writeFile("data.txt", data, () => {
 
 // });
@@ -17,7 +17,8 @@
 async function getSecondLargestStream(stream) {
     let v;
     let maxValues = [undefined, undefined];
-    stream.on('data', async function (chunk) {
+    let count = 0;
+    await stream.on('data', async function (chunk) {
         if (chunk !== ',') {
             v = parseInt(chunk);
 
@@ -25,9 +26,10 @@ async function getSecondLargestStream(stream) {
 
             if (v > maxValues[1]) {
                 maxValues = [maxValues[1], v];
-            } else if (v > maxValues[0]) {
+            } else if (v > maxValues[0] || count === 1) {
                 maxValues[0] = v;
             }
+            if (count < 2) count++;
         }
     })
 
@@ -36,8 +38,9 @@ async function getSecondLargestStream(stream) {
         resolve = res;
     })
 
-    await stream.on('end', () => {
-        resolve(maxValues[0]);
+    await stream.on('end', async () => {
+        if (count < 2) resolve(undefined);
+        await resolve(maxValues[0]);
     })
     return await returnProm;
 }
