@@ -29,11 +29,14 @@ test('Second larger at the beginning', async () => {
     expect(secondLargest).toEqual(7);
 })
 
-// test('Second larger at the end', () => {
-//     const values = [-9, 4, -1, 7, 2, -5, 10, 3, 6, 8];
-//     const secondLargest = findSecondLargest(values);
-//     expect(secondLargest).toEqual(8);
-// })
+test('Second larger at the end', async () => {
+    const data = '4,1,5,2,5,3,8,6,7';
+    const stream = createStream(data);
+
+    const secondLargest = await getSecondLargestStream(stream);
+    expect(secondLargest).toEqual(7);
+})
+
 
 // test('Second larger at the second place', () => {
 //     const values = [4, 9, -1, 7, 2, -5, 10, 3, 6, 8];
