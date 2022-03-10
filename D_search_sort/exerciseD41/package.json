@@ -1,0 +1,15 @@
+{
+  "name": "exercised41",
+  "version": "1.0.0",
+  "description": "",
+  "main": "exerciseD41.js",
+  "scripts": {
+    "test": "jest exerciseD41.unit.test.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "jest": "^27.5.1"
+  }
+}
