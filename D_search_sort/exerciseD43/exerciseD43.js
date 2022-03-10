@@ -1,11 +1,5 @@
 'use strict';
 
-const string1 = 'X';
-const string2 = 'GXTXAYB';
-
-const substring = findLCS(string1, string2);
-console.log(substring);
-
 function findLCS(string1, string2) {
     let lcs = '';
 
@@ -16,8 +10,8 @@ function findLCS(string1, string2) {
         if (string1.length < 1 || string2.length < 1) return [''];
 
         if (string1.length === 1) {
-            console.log('here')
             let index = string2.indexOf(string1);
+            if (lcs.length < 1) lcs = string1;
             if (index >= 0) {
                 return [string1];
             }
@@ -32,7 +26,6 @@ function findLCS(string1, string2) {
                     string1.slice(i + 1),
                     string2.slice(index + 1)
                 ).map(s => string1[i] + s);
-                ////console.log(currentSubSequences);
 
                 prevSubSequences.forEach(s => {
                     if (s.length > lcs.length) {
@@ -40,10 +33,8 @@ function findLCS(string1, string2) {
                     }
                 });
                 currentSubSequences = currentSubSequences.concat(prevSubSequences);
-                //console.log(string1, string2, currentSubSequences);
             }
         }
-        //console.log(currentSubSequences);
         return currentSubSequences;
     }
 }

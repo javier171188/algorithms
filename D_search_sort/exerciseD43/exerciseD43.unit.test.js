@@ -33,8 +33,30 @@ test('No substring', () => {
     expect(substring).toEqual('');
 })
 
-test('Full match', () => {
+describe('Full match', () => {
+    test('Same strings', () => {
+        const string1 = 'abcd';
+        const string2 = 'abcd';
 
+        const substring = findLCS(string1, string2);
+        expect(substring).toEqual('abcd');
+    })
+
+    test('First larger', () => {
+        const string1 = 'aabbccdd';
+        const string2 = 'abcd';
+
+        const substring = findLCS(string1, string2);
+        expect(substring).toEqual('abcd');
+    })
+
+    test('Second larger', () => {
+        const string1 = 'abcd';
+        const string2 = 'aabbccdd';
+
+        const substring = findLCS(string1, string2);
+        expect(substring).toEqual('abcd');
+    })
 })
 
 test('Check symmetry', () => {
@@ -95,5 +117,13 @@ describe('Short strings', () => {
             const substring = findLCS(string1, string2);
             expect(substring).toEqual('A');
         })
+    })
+
+    test('Two sized strings', () => {
+        const string1 = 'aA';
+        const string2 = 'Ab';
+
+        const substring = findLCS(string1, string2);
+        expect(substring).toEqual('A');
     })
 })
