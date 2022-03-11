@@ -3040,84 +3040,20 @@ const WORDS = ["a",
     "cafe", "face", "night", "thing", "tab", "bat", "yap", "pay",
     "care", "race"];
 
-const LETTERS = 'abcdefghijklmnopqrstuvwxyz';
+const orderedWords = {};
 
-let orderedByLength = {
-    '1': [],
-    '2': [],
-    '3': [],
-    '4': [],
-    '5': [],
-    '6': [],
-    '7': [],
-    '8': [],
-    '9': [],
-    '10': [],
-    '11': [],
-    '12': [],
-    '13': [],
-    '14': [],
-    '15': [],
-    '16': []
-}
-for (let w of WORDS) {
-    let wordLength = String(w.length);
-    orderedByLength[wordLength].push(w);
-}
+for (let word of WORDS) {
+    let lettersArr = word.split('');
+    lettersArr.sort();
+    let orderedLetters = lettersArr.join('');
 
-let byLengthAndLetters = {
-    '1': {},
-    '2': {},
-    '3': {},
-    '4': {},
-    '5': {},
-    '6': {},
-    '7': {},
-    '8': {},
-    '9': {},
-    '10': {},
-    '11': {},
-    '12': {},
-    '13': {},
-    '14': {},
-    '15': {},
-    '16': {}
-}
-
-
-for (let num in byLengthAndLetters) {
-    for (let word of orderedByLength[num]) {
-        let numbLetters = countLetters(word);
-        for (let l in numbLetters) {
-            if (Object.keys(byLengthAndLetters[num]).includes(l)) {
-                if (Object.keys(byLengthAndLetters[num][l]).includes(String(numbLetters[l]))) {
-                    byLengthAndLetters[num][l][String(numbLetters[l])].push(word);
-                } else {
-                    byLengthAndLetters[num][l][String(numbLetters[l])] = [word];
-                }
-
-            } else {
-                byLengthAndLetters[num][l] = {};
-                byLengthAndLetters[num][l][String(numbLetters[l])] = [word];
-            }
-
-        }
+    if (orderedLetters in orderedWords) {
+        orderedWords[orderedLetters].push(word);
+    } else {
+        orderedWords[orderedLetters] = [word];
     }
 }
-
-function countLetters(word) {
-    let numberLetters = {};
-    for (let l of word) {
-        if (Object.keys(numberLetters).includes(l)) {
-            numberLetters[l] += 1;
-        } else {
-            numberLetters[l] = 1;
-        }
-    }
-    return numberLetters;
-}
-
-const dictionary = JSON.stringify(byLengthAndLetters);
+const dictionary = JSON.stringify(orderedWords);
 
 fs.writeFile("dictionary.json", dictionary, () => {
 
