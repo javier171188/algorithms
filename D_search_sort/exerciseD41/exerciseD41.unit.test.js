@@ -3,7 +3,7 @@ const getKLargest = require('./exerciseD41');
 
 test('k greater than the length of the list', () => {
     const k = 8;
-    const list = [1, 6, 8, 3, 6, 8, 3];
+    const list = [1, 2, 5, 9, 6, 8, 3];
     function throwingFunction() {
         getKLargest(list, k);
     }
@@ -12,7 +12,7 @@ test('k greater than the length of the list', () => {
 
 test('k is less than 1', () => {
     const k = 0;
-    const list = [1, 6, 8, 3, 6, 8, 3];
+    const list = [1, 2, 5, 9, 6, 8, 3];
     function throwingFunction() {
         getKLargest(list, k);
     }
@@ -21,23 +21,23 @@ test('k is less than 1', () => {
 
 test('k equals 1 must return the maximum', () => {
     const k = 1;
-    const list = [1, 6, 8, 3, 6, 8, 3];
+    const list = [1, 2, 5, 9, 6, 8, 3];
     const kLargest = getKLargest(list, k);
-    expect(kLargest).toEqual([8]);
+    expect(kLargest).toEqual(9);
 })
 
-test('k equals length of the list must return whole list values', () => {
+test('k equals length of the list must return the minimum', () => {
     const k = 7;
-    const list = [1, 6, 8, 3, 6, 8, 3];
+    const list = [1, 2, 5, 9, 6, 8, 3];
     const kLargest = getKLargest(list, k);
-    expect(kLargest).toEqual([1, 3, 3, 6, 6, 8, 8]);
+    expect(kLargest).toEqual(1);
 })
 
 test('Test k = 3 and list.length = 7', () => {
     const k = 3;
-    const list = [1, 6, 8, 3, 6, 8, 3];
+    const list = [1, 2, 5, 9, 6, 8, 3];
     const kLargest = getKLargest(list, k);
-    expect(kLargest).toEqual([6, 8, 8]);
+    expect(kLargest).toEqual(6);
 })
 
 describe('Small arrays', () => {
@@ -54,7 +54,7 @@ describe('Small arrays', () => {
         const k = 1;
         const list = [8];
         const kLargest = getKLargest(list, k);
-        expect(kLargest).toEqual([8]);
+        expect(kLargest).toEqual(8);
     })
 
     describe('Two sized array', () => {
@@ -62,13 +62,13 @@ describe('Small arrays', () => {
             const k = 1;
             const list = [8, 7];
             const kLargest = getKLargest(list, k);
-            expect(kLargest).toEqual([8]);
+            expect(kLargest).toEqual(8);
         })
         test('k=2', () => {
             const k = 2;
             const list = [8, 7];
             const kLargest = getKLargest(list, k);
-            expect(kLargest).toEqual([7, 8]);
+            expect(kLargest).toEqual(7);
         })
     })
 })
