@@ -31,12 +31,32 @@ describe('Known parents', () => {
     })
 })
 
-describe('Known children', () => {
-    test('O+ ? O', () => {
-
+describe('Known child', () => {
+    test('O+ ? O-', () => {
+        console.log = jest.fn();
+        const input = "O+ ? O-";
+        getCombinations(input);
+        expect(console.log.mock.calls[0][0]).toEqual('O+ {A+,A-,B+,B-,O+,O-} O-');
     })
 
     test('AB+ ? O+', () => {
+        console.log = jest.fn();
+        const input = "AB+ ? O+";
+        getCombinations(input);
+        expect(console.log.mock.calls[0][0]).toEqual('AB+ IMPOSSIBLE O+');
+    })
 
+    test('? O+ O-', () => {
+        console.log = jest.fn();
+        const input = "? O+ O-";
+        getCombinations(input);
+        expect(console.log.mock.calls[0][0]).toEqual('{A+,A-,B+,B-,O+,O-} O+ O-');
+    })
+
+    test('? AB+ O+', () => {
+        console.log = jest.fn();
+        const input = "? AB+ O+";
+        getCombinations(input);
+        expect(console.log.mock.calls[0][0]).toEqual('IMPOSSIBLE AB+ O+');
     })
 })

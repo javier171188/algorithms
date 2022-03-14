@@ -1,8 +1,5 @@
 'use strict';
-
-// const input = "O+ ? O";
-const input = "AB+ ? O+";
-
+//https://onlinejudge.org/index.php?option=onlinejudge&Itemid=99999999&category=254&page=show_problem&problem=3502
 
 const COMBINATIONS = {
     'AA': 'A', 'AB': 'AB', 'AO': 'A',
@@ -10,18 +7,19 @@ const COMBINATIONS = {
     'BA': 'AB', 'OA': 'A', 'OB': 'B'
 };
 
+const COMBINATIONS_FACTS = { '++': '+', '--': '-', '+-': '+', '-+': '+' };
+
 const ALLELES = {
     'A': ['A', 'O'],
     'B': ['B', 'O'],
     'AB': ['A', 'B'],
     'O': ['O']
-}
-// const FACTOR = {
-//     '+': ['+', '-'],
-//     '-': ['-']
-// }
+};
 
-getCombinations(input);
+const FACTOR = {
+    '+': ['+', '-'],
+    '-': ['-']
+};
 
 function getCombinations(input) {
     const people = input.split(' ');
@@ -29,7 +27,9 @@ function getCombinations(input) {
     const parent2 = people[1];
     const child = people[2];
 
-    //console.log(people);
+    let results = [];
+    let resultTypes;
+
     if (child === '?') {
         const allele1 = parent1.slice(0, -1);
         const factor1 = parent1[parent1.length - 1];
@@ -52,23 +52,48 @@ function getCombinations(input) {
             possFactors = ['-'];
         }
 
-        let results = [];
         for (let a of possAllelesArr) {
             for (let f of possFactors) {
                 results.push(a + f);
             }
         }
-        let childTypes;
-        if (results.length > 1) {
-            childTypes = `{${results.join(',')}}`;
-        } else {
-            childTypes = results[0];
-        }
-
-        console.log(`${parent1} ${parent2} ${childTypes}`);
     } else {
+        const parent = parent1 === '?' ? parent2 : parent1;
 
+        const alleleP = parent.slice(0, -1);
+        const factorP = parent[parent.length - 1];
+
+        const parentAll = ALLELES[alleleP];
+        const parentFac = FACTOR[factorP];
+
+        for (let a of parentAll) {
+            for (let f of parentFac) {
+                for (let unAll in ALLELES) {
+                    for (let pAl of ALLELES[unAll]) {
+                        let resultingAlleles = a + pAl;
+                        for (let unFa in FACTOR) {
+                            for (let pF of FACTOR[unFa]) {
+                                let resultingFact = f + pF;
+                                let resultingType = COMBINATIONS[resultingAlleles] + COMBINATIONS_FACTS[resultingFact];
+                                if (resultingType === child && !results.includes(unAll + unFa)) {
+                                    results.push(unAll + unFa);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
+
+    if (results.length > 1) {
+        resultTypes = `{${results.join(',')}}`;
+    } else {
+        resultTypes = results[0];
+    }
+    if (!resultTypes) resultTypes = 'IMPOSSIBLE';
+    let resultingString = `${parent1 === '?' ? resultTypes : parent1} ${parent2 === '?' ? resultTypes : parent2} ${child === '?' ? resultTypes : child}`;
+    console.log(resultingString);
 }
 
 module.exports = getCombinations;
