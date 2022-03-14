@@ -47,7 +47,7 @@ describe('Small input', () => {
     })
 
     test('Three sized string', () => {
-        const result3 = longestRunOfTwoNumbers('234');
-        expect(result3).toEqual('23');
+        const result = longestRunOfTwoNumbers('234');
+        expect(result).toEqual('23');
     })
 })
