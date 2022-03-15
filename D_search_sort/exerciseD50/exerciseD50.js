@@ -1,9 +1,4 @@
 'use strict';
-const A = "abcd";
-const B = "abcd";
-const C = "aabcbcdd";
-
-isInterleaved(A, B, C);
 
 function isInterleaved(A, B, C) {
     if (C.length !== A.length + B.length) return false;
@@ -12,10 +7,10 @@ function isInterleaved(A, B, C) {
     let second = Array.from(B);
 
     for (let l of C) {
-        if (l === first[0]) {
-
-        } else if (l === second[0]) {
-
+        if (first.length > 0 && l === first[0]) {
+            first.shift();
+        } else if (second.length > 0 && l === second[0]) {
+            second.shift();
         } else {
             return false;
         }
@@ -23,3 +18,5 @@ function isInterleaved(A, B, C) {
     }
     return true;
 }
+
+module.exports = isInterleaved;
