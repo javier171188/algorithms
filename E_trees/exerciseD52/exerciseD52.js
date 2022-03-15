@@ -28,7 +28,7 @@ const tree = {
     }
 }
 
-topToBottom(tree);
+//topToBottom(tree);
 
 function topToBottom(tree) {
     const queue = [tree];
@@ -44,6 +44,13 @@ function topToBottom(tree) {
     }
 }
 
+leftToRight(tree);
+
 function leftToRight(tree) {
+    if (!tree) return;
+
+    leftToRight(tree["branch1"]);
+    console.log(tree.value);
+    leftToRight(tree["branch2"]);
 
 }
