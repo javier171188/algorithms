@@ -1,31 +1,5 @@
 'use strict';
 
-const tree = {
-    value: 1,
-    branch1: {
-        value: 2,
-        branch1: { value: 5 },
-        branch2: { value: 6 }
-    },
-    branch2: {
-        value: 3,
-        branch1: { value: 7 }
-    },
-    branch3: {
-        value: 4,
-        branch1: { value: 8 },
-        branch2: {
-            value: 9,
-            branch: { value: 10 }
-        }
-    }
-}
-const value1 = 8;
-const value2 = 10;
-
-const lca = lowestCommonAncestor(value1, value2, tree);
-console.log(lca.value);
-
 function lowestCommonAncestor(value1, value2, tree) {
     let commonAncestor;
 
@@ -44,7 +18,6 @@ function lowestCommonAncestor(value1, value2, tree) {
             }
         }
     }
-
     return commonAncestor;
 }
 
@@ -59,3 +32,5 @@ function containsNode(value, tree) {
     }
     return false;
 }
+
+module.exports = lowestCommonAncestor;
