@@ -51,11 +51,21 @@ class BinarySearchTree {
             return;
         }
         if (!deletingNode.node.right) {
+            if (!deletingNode.parent) {
+                this.root = this.root.left;
+                return;
+            }
+            deletingNode.parent[deletingNode.direction] = deletingNode.node.left;
             return;
         }
-        // if (!deletingNode.left) {
-        //     return;
-        // }
+        if (!deletingNode.node.left) {
+            if (!deletingNode.parent) {
+                this.root = this.root.right;
+                return;
+            }
+            deletingNode.parent[deletingNode.direction] = deletingNode.node.right;
+            return;
+        }
         //The node has two children
 
         function getNode(value, node, parent, direction) {
@@ -84,5 +94,7 @@ binSearchThree.insert(30);
 //console.log(binSearchThree.root);
 binSearchThree.insert(15);
 console.log(binSearchThree.root);
-binSearchThree.delete(15);
+binSearchThree.insert(25);
+console.log(binSearchThree.root);
+binSearchThree.delete(30);
 console.log(binSearchThree.root);
