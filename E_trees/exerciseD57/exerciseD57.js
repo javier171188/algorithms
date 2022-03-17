@@ -22,7 +22,6 @@ class BinarySearchTree {
         insert_value(value, this.root);
 
         function insert_value(value, node) {
-            //let values = [node.value, node.left.value, node.right.value];
             if (!node) {
                 let newNode = new Node(value);
                 return newNode;
@@ -39,14 +38,51 @@ class BinarySearchTree {
         }
     }
 
+    delete(value) {
+        let deletingNode = getNode(value, this.root, undefined, undefined);
+
+        if (!deletingNode.node) return;
+        if (!deletingNode.node.left && !deletingNode.node.right) {
+            if (!deletingNode.parent) {
+                this.root = undefined;
+                return;
+            }
+            deletingNode.parent[deletingNode.direction] = undefined;
+            return;
+        }
+        if (!deletingNode.node.right) {
+            return;
+        }
+        // if (!deletingNode.left) {
+        //     return;
+        // }
+        //The node has two children
+
+        function getNode(value, node, parent, direction) {
+            if (!node) return;
+            if (node.value === value) return { node, parent, direction };
+
+            let gottenNode;
+            if (node.value < value) {
+                //Search at right
+                gottenNode = getNode(value, node.right, node, 'right');
+            } else {
+                //Search at left
+                gottenNode = getNode(value, node.left, node, 'left');
+            }
+            return gottenNode;
+        }
+    }
 }
 
 const binSearchThree = new BinarySearchTree();
 binSearchThree.insert(10);
-console.log(binSearchThree.root);
+//console.log(binSearchThree.root);
 binSearchThree.insert(20);
-console.log(binSearchThree.root);
+//console.log(binSearchThree.root);
 binSearchThree.insert(30);
-console.log(binSearchThree.root);
+//console.log(binSearchThree.root);
 binSearchThree.insert(15);
+console.log(binSearchThree.root);
+binSearchThree.delete(15);
 console.log(binSearchThree.root);
