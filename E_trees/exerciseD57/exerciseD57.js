@@ -68,6 +68,11 @@ class BinarySearchTree {
         }
         //The node has two children
 
+
+        function getMinNode(node) {
+
+        };
+
         function getNode(value, node, parent, direction) {
             if (!node) return;
             if (node.value === value) return { node, parent, direction };
@@ -82,6 +87,8 @@ class BinarySearchTree {
             }
             return gottenNode;
         }
+
+
     }
 }
 
