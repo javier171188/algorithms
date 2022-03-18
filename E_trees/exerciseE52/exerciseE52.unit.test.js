@@ -1,6 +1,6 @@
 'use strict';
 
-const { topToBottom, leftToRight } = require('./exerciseD52');
+const { topToBottom, leftToRight } = require('./exerciseE52');
 
 const tree6 = {
     value: 1,

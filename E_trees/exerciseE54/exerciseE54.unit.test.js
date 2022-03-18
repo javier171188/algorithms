@@ -1,6 +1,6 @@
 'use strict';
 
-const toTrie = require('./exerciseD54');
+const toTrie = require('./exerciseE54');
 
 describe('Small dictionaries', () => {
     describe('Empty dictionary', () => {

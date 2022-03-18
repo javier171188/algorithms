@@ -1,5 +1,5 @@
 'use strict';
-const isMirrored = require("./exerciseD55");
+const isMirrored = require("./exerciseE55");
 
 describe('Small trees', () => {
     test('Empty tree', () => {

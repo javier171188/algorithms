@@ -1,6 +1,6 @@
 'use strict';
 
-const isSameLevel = require('./exerciseD53');
+const isSameLevel = require('./exerciseE53');
 
 describe('Example tree', () => {
     let tree = {

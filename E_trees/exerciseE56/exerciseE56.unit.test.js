@@ -1,6 +1,6 @@
 'use strict';
 const fs = require('fs');
-const findWords = require('./exerciseD56');
+const findWords = require('./exerciseE56');
 
 function createStream(test) {
     const readableStream = fs.createReadStream(__dirname + `/data/${test}.txt`, { highWaterMark: 1 });

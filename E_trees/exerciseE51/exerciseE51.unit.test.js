@@ -1,6 +1,6 @@
 'use strict';
 
-const lowestCommonAncestor = require('./exerciseD51');
+const lowestCommonAncestor = require('./exerciseE51');
 
 describe('Small trees', () => {
     test('No tree', () => {

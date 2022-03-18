@@ -1,6 +1,6 @@
 'use strict';
 
-const BinarySearchTree = require('./exerciseD57');
+const BinarySearchTree = require('./exerciseE57');
 
 describe('Check insert', () => {
     describe('Check first insertion', () => {

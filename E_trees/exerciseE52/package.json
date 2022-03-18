@@ -1,10 +1,10 @@
 {
-  "name": "exercised55",
+  "name": "exercised52",
   "version": "1.0.0",
   "description": "",
-  "main": "exerciseD55.js",
+  "main": "exerciseD52.js",
   "scripts": {
-    "test": "jest exerciseD55.unit.test.js"
+    "test": "jest exerciseE52.unit.test.js"
   },
   "keywords": [],
   "author": "",

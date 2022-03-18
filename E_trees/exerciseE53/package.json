@@ -4,7 +4,7 @@
   "description": "",
   "main": "exerciseD53.js",
   "scripts": {
-    "test": "jest exerciseD53.unit.test.js"
+    "test": "jest exerciseE53.unit.test.js"
   },
   "keywords": [],
   "author": "",
