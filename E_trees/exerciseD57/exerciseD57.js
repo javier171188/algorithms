@@ -71,14 +71,12 @@ class BinarySearchTree {
         let currentNode = deletingNode.node.right;
         let parentNode;
 
-
         while (currentNode.left) {
             parentNode = currentNode;
             currentNode = currentNode.left;
         }
         deletingNode.node.value = currentNode.value;
         parentNode.left = currentNode.right;
-
 
         function getNode(value, node, parent, direction) {
             if (!node) return;
@@ -94,21 +92,7 @@ class BinarySearchTree {
             }
             return gottenNode;
         }
-
-
     }
 }
 
-const binSearchThree = new BinarySearchTree();
-binSearchThree.insert(10);
-//console.log(binSearchThree.root);
-binSearchThree.insert(20);
-//console.log(binSearchThree.root);
-binSearchThree.insert(30);
-//console.log(binSearchThree.root);
-binSearchThree.insert(15);
-console.log(binSearchThree.root);
-binSearchThree.insert(25);
-console.log(binSearchThree.root);
-binSearchThree.delete(30);
-console.log(binSearchThree.root);
+module.exports = BinarySearchTree;
