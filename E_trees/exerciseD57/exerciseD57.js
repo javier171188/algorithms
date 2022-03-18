@@ -66,12 +66,19 @@ class BinarySearchTree {
             deletingNode.parent[deletingNode.direction] = deletingNode.node.right;
             return;
         }
+
         //The node has two children
+        let currentNode = deletingNode.node.right;
+        let parentNode;
 
 
-        function getMinNode(node) {
+        while (currentNode.left) {
+            parentNode = currentNode;
+            currentNode = currentNode.left;
+        }
+        deletingNode.node.value = currentNode.value;
+        parentNode.left = currentNode.right;
 
-        };
 
         function getNode(value, node, parent, direction) {
             if (!node) return;
